@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    <!--Below is a script that writes into the document the link to the css style sheet with the time accessed appended on as to prevent caching of the file-->
+    <!--THIS WILL BE REMOVED ONCE THE PROJECT IS COMPLETE AND THE DOCUMENT'S TYLE.CSS FILE IS COMPLETE'-->
+    <script>
+        document.write('<link rel="stylesheet" href="/static/style.css?v=' + Date.now() + '">');
+    </script>
+
+    <title>ats resume</title>
+</head>
+<body>
+    <div class="hero">
+        <h1>Resume ATS Tool</h1>
+        <h4>Created by Ryan Shafi</h4>
+    </div>
+
+    <!-- Results and Insights Section -->
+    <div id="editing">
+    </div>
+
+    <div id="score-display">
+    </div>
+
+    <!-- Resume Input Section -->
+    <div class="scan-inputs">
+        <div class="get-resume">
+        <!-- For File Input -->
+            <form hx-post="/handle-resume-file" hx-trigger="submit" hx-target="#resume" hx-encoding="multipart/form-data">
+                <input type="file" name="resume_file" class="input">
+                <input type="submit" class="button" value="Submit File"> <!--this will be deleted later-->
+                <div class="htmx-indicator">
+                    <div class="loading-content">
+                    <div class="spinner"></div>
+                        <div class="loading-content-text">
+                            <p>Parsing resume... This may take a few seconds.</p>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div id="export-button" style="display: none;">
+            <button onclick="window.print()" class="button export-btn">
+                Export to PDF
+            </button>
+            <p style="color: #FFF8D4; font-size: 0.8rem;">* Uncheck headers and footers when printing</p>
+        </div>
+
+        <!-- For Job Description (jd) Text Input -->
+        <div id="get-job-description" style="display: none;">
+            <form hx-post="/handle-job-description" hx-trigger="submit" hx-target="#job-description">
+                <input type="text" name="job_description_text" class="input" placeholder="Enter job description">
+                <input type="submit" class="button" value="Get Insights"> <!--this will be deleted later-->
+                <div class="htmx-indicator">
+                    <div class="loading-content">
+                    <div class="spinner"></div>
+                    <div class="loading-content-text">
+                        <p>Locating keywords... This may take a few seconds.</p>
+                    </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div id="get-results" style="display: none;">
+            <form hx-post="/analyze" hx-trigger="submit" hx-target=".results">
+                <input type="submit" class="button" value="Get Score"> <!--this will be deleted later-->
+            </form>
+        </div>
+    </div>
+
+    <!-- Resume Output Section-->
+    <div class="scan-outputs" contenteditable="true">
+        
+        <div id="resume">
+        </div>
+
+        <div id="job-description" style="display: none;">
+        </div>
+
+    </div>
+    
+    
+
+</body>
+</html>
