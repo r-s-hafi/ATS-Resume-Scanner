@@ -11,7 +11,6 @@ client = AsyncOpenAI(api_key=key)
 
 async def parse_education(context: str) -> list:
     
-    print('=== INITIALIZING parse_education function ===')
     """
     Parse education entries from resume text and return structured data.
     
@@ -133,7 +132,6 @@ async def parse_education(context: str) -> list:
 
         # Parse JSON response and return as Python dictionary
         education_entries = json.loads(response)
-        print(f'=== parse_education OUTPUT: {education_entries} ===')
 
         for entry in education_entries:
             entry['content'] = entry['content'].replace('\n','<br>')
@@ -149,7 +147,6 @@ async def parse_education(context: str) -> list:
 
 
 async def parse_experience(context: str) -> list:
-    print('=== INITIALIZING parse_experience function ===')
     """
     Parse work experience entries from resume text and return structured data.
     
@@ -262,7 +259,6 @@ async def parse_experience(context: str) -> list:
 
         # Parse JSON response and return as Python dictionary
         experience_entries = json.loads(response)
-        print(f'=== parse_experience OUTPUT: {experience_entries} ===')
 
         for entry in experience_entries:
             entry['content'] = entry['content'].replace('\n','<br>')
@@ -278,7 +274,7 @@ async def parse_experience(context: str) -> list:
 
 
 async def parse_projects(context: str) -> list:
-    print('=== INITIALIZING parse_projects function ===')
+
     """
     Parse projects, research, publications, presentations, and other academic/professional work from resume text and return structured data.
     
@@ -400,12 +396,9 @@ async def parse_projects(context: str) -> list:
 
         # Parse JSON response and return as Python dictionary
         project_entries = json.loads(response)
-        print(f'=== parse_projects OUTPUT: {project_entries} ===')
 
         for entry in project_entries:
             entry['content'] = entry['content'].replace('\n','<br>')
-
-        print(f'=== parse_projects OUTPUT: {project_entries} ===')
         
         return project_entries if project_entries else []
 
